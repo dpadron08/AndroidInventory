@@ -88,9 +88,6 @@ class AddItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.saveAction.setOnClickListener {
-            addNewItem()
-        }
         val id = navigationArgs.itemId
         if (id > 0) {
             // once again, grabbing an Item! (not Item?) from retrieveItem by using an observer
