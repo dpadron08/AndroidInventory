@@ -9,10 +9,16 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
 
     val allItems: LiveData<List<Item>> = itemDao.getItems().asLiveData()
 
+    // insert is a suspend fun so it needs a coroutine scope
     private fun insertItem(item: Item) {
         viewModelScope.launch {
             itemDao.insert(item)
         }
+    }
+
+    // dont need to launch a coroutine scope bc getItem returns a flow, and is not a suspend fun
+    fun retrieveItem(id: Int): LiveData<Item> {
+        return itemDao.getItem(id).asLiveData()
     }
 
     private fun getNewItemEntry(itemName: String, itemPrice: String, itemCount: String): Item {
