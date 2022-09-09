@@ -22,6 +22,12 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         }
     }
 
+    fun deleteItem(item: Item) {
+        viewModelScope.launch {
+            itemDao.delete(item)
+        }
+    }
+
     // dont need to launch a coroutine scope bc getItem returns a flow, and is not a suspend fun
     fun retrieveItem(id: Int): LiveData<Item> {
         return itemDao.getItem(id).asLiveData()
